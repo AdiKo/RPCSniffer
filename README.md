@@ -44,37 +44,43 @@ With RPCSniffer you can explore RPC Messages that present on Microsoft system.
 ## Run
 
 1. Start Wireshark from cmd and prepare it to use rpcsniffer's pipe
-````"C:\Program Files\Wireshark\Wireshark.exe" -i \\.\pipe\RPCSniffer
+
+```
+	"C:\Program Files\Wireshark\Wireshark.exe" -i \\.\pipe\RPCSniffer
+```
+
 2. Run python main.py with the server process to listen
     
-    ```
+```
     python main.py --help
     usage: main.py [-h] (-p PID | -n PROCNAME)
     main.py: error: one of the arguments -p/--pid -n/--procname is required
-    ```
+ ```
+    
 3. go back to wireshark and click "start"
 4. from now you'll get all rpc messages in wireshark
 
 ## Implementation
 
-check the wiki for more info.
+Check the wiki for more info.
 
 
 ## TODO
 
 	
 This project is a POC for now, but you can help me add some stunning features that will allow us to really understand RPC internals. 
-- dissect the rpc raw data (maybe by using the RPCView decompiler and find a MIDL-dissector?)
-- integrate it with the wireshark midl-dissector itself
-- retreive more data from the rpc message (I used REACTOS to parse the RPC MESSAGE. can you find some usefull data from this windows struct?)
-
+- Dissect the rpc raw data (maybe by using the RPCView decompiler and find a MIDL-dissector?)
+- Integrate it with the wireshark midl-dissector itself
+- Retreive more data from the rpc message (I used [REACTOS](https://www.reactos.org/) to parse the RPC MESSAGE). Can you find more usefull data from this windows struct?
+- ALPC sniffing
+- Record all RPC messages for fun and fuzzing
 
 Anyway, I'd be more than happy to receive bug reports, suggestions and anything else.
 
 
 ## Some Comments
 
-- It's very usefull to use the powerful and free tool called RPCView for finding the interesting server process, decompile its interfaces and more. Take a look at
+- It's very usefull to use the powerful and free tool called RPCView for finding interesting RPC server processes, decompile its interfaces and more. Take a look at
 	http://rpcview.org/index.html
 
 
