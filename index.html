@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Rpcsniffer by AdiKo</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Rpcsniffer</h1>
+          <h2>RPCSniffer sniffs WINDOWS RPC messages in a given RPC server process.</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/AdiKo/RPCSniffer/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/AdiKo/RPCSniffer/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/AdiKo/RPCSniffer" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a name="rpcsniffer" class="anchor" href="#rpcsniffer"><span class="octicon octicon-link"></span></a>RPCSniffer</h1>
+
+<p>RPCSniffer sniffs RPC messages in a given RPC server process.</p>
+
+<p><img src="https://raw.githubusercontent.com/AdiKo/RPCSniffer/master/sample_screenshot.png" alt="sniffing example in spoolsv process"></p>
+
+<h2>
+<a name="general-information" class="anchor" href="#general-information"><span class="octicon octicon-link"></span></a>General Information</h2>
+
+<p>With RPCSniffer you can explore RPC Messages that present on Microsoft system.
+    The data given for each RPC message contains the following details:</p>
+
+<ul>
+<li>Type (Async/Sync , Request/Response)</li>
+<li>Process number</li>
+<li>Thread number</li>
+<li>Procedure number</li>
+<li>Transfer Info
+
+<ul>
+<li>GUID</li>
+<li>RPC minor version</li>
+<li>RPC major version</li>
+</ul>
+</li>
+<li>Interface Info
+
+<ul>
+<li>GUID</li>
+<li>Dispatch table pointer</li>
+<li>Dispatch table size</li>
+<li>Dispatch table function pointer</li>
+</ul>
+</li>
+<li>Midl Info
+
+<ul>
+<li>Dispatch pointer</li>
+<li>Server function address</li>
+</ul>
+</li>
+<li>RPC Flags</li>
+<li>RPC Data</li>
+</ul><h2>
+<a name="install-steps" class="anchor" href="#install-steps"><span class="octicon octicon-link"></span></a>Install steps</h2>
+
+<ol>
+<li><p>Install <a href="https://www.python.org/download/releases/2.7/">python 2.7</a> (64 bit)</p></li>
+<li><p>Install the latest <a href="http://winappdbg.sourceforge.net/">Winappdbg</a> python package</p></li>
+<li><p>Install <a href="https://www.wireshark.org/download.html">Wireshark</a></p></li>
+<li><p>Intsall the latest <a href="https://github.com/ashdnazg/pyreshark">Pyreshark</a> python module for wireshark</p></li>
+<li><p>grab the file <em>"pyreshark_rpc_dissector/rpc_protocol.py"</em> to <em>"c:\Program Files\Wireshark\python\protocols\"</em></p></li>
+</ol><h2>
+<a name="run" class="anchor" href="#run"><span class="octicon octicon-link"></span></a>Run</h2>
+
+<ol>
+<li>Start Wireshark from cmd and prepare it to use rpcsniffer's pipe</li>
+</ol><pre><code>    "C:\Program Files\Wireshark\Wireshark.exe" -i \\.\pipe\RPCSniffer
+</code></pre>
+
+<ol>
+<li>Run python main.py with the server process to listen</li>
+</ol><pre><code>    python main.py --help
+    usage: main.py [-h] (-p PID | -n PROCNAME)
+    main.py: error: one of the arguments -p/--pid -n/--procname is required
+</code></pre>
+
+<ol>
+<li>go back to wireshark and click "start"</li>
+<li>from now you'll get all rpc messages in wireshark</li>
+</ol><h2>
+<a name="implementation" class="anchor" href="#implementation"><span class="octicon octicon-link"></span></a>Implementation</h2>
+
+<p>Check the wiki for more info.</p>
+
+<h2>
+<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h2>
+
+<p>This project is a POC for now, but you can help me add some stunning features that will allow us to really understand RPC internals. </p>
+
+<ul>
+<li>Dissect the rpc raw data (maybe by using the RPCView decompiler and find a MIDL-dissector?)</li>
+<li>Integrate it with the wireshark midl-dissector itself</li>
+<li>Retreive more data from the rpc message (I used <a href="https://www.reactos.org/">REACTOS</a> to parse the RPC MESSAGE). Can you find more usefull data from this windows struct?</li>
+</ul><p>Anyway, I'd be more than happy to receive bug reports, suggestions and anything else.</p>
+
+<h2>
+<a name="some-comments" class="anchor" href="#some-comments"><span class="octicon octicon-link"></span></a>Some Comments</h2>
+
+<ul>
+<li>It's very usefull to use the powerful and free tool called RPCView for finding interesting RPC server processes, decompile its interfaces and more. Take a look at
+<a href="http://rpcview.org/index.html">http://rpcview.org/index.html</a>
+</li>
+</ul>
+        </section>
+
+        <footer>
+          Rpcsniffer is maintained by <a href="https://github.com/AdiKo">AdiKo</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
